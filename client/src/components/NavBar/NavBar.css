@@ -1,0 +1,43 @@
+#logo{
+    height: 50px;
+  }
+
+
+nav{
+    display: flex;
+    flex-direction: row;
+    flex-basis: auto;
+    flex-wrap: nowrap;
+    align-items: center;
+    background-color: #262626;
+    background-color: #1267B3;
+    margin: 0;
+    padding: 5px;
+    font-size: 1.5em;
+}
+
+nav > a{
+    padding: 10px;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: white;
+    
+    
+}
+.nav-right{
+    margin-left: auto;
+}
+.notification-icon{
+    margin-right: 15px;
+    height: 40px;
+    width: 40px;
+}
+.account-icon{
+    margin-right: 15px;
+    height: 40px;
+    width: 40px;
+}
+nav > a:hover{
+    color: #9fd2fc;
+}
