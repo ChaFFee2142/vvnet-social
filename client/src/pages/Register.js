@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Form,
     Input,
@@ -12,7 +12,7 @@ import {
     AutoComplete,
 } from 'antd';
 
-const {Option} = Select;
+const { Option } = Select;
 
 const formItemLayout = {
     labelCol: {
@@ -81,7 +81,7 @@ const RegistrationForm = (props) => {
                     },
                 ]}
             >
-                <Input/>
+                <Input />
             </Form.Item>
 
             <Form.Item
@@ -95,7 +95,7 @@ const RegistrationForm = (props) => {
                 ]}
                 hasFeedback
             >
-                <Input.Password/>
+                <Input.Password />
             </Form.Item>
 
             <Form.Item
@@ -108,7 +108,7 @@ const RegistrationForm = (props) => {
                         required: true,
                         message: 'Please confirm your password!',
                     },
-                    ({getFieldValue}) => ({
+                    ({ getFieldValue }) => ({
                         validator(_, value) {
                             if (!value || getFieldValue('password') === value) {
                                 return Promise.resolve();
@@ -119,7 +119,7 @@ const RegistrationForm = (props) => {
                     }),
                 ]}
             >
-                <Input.Password/>
+                <Input.Password />
             </Form.Item>
 
             <Form.Item
@@ -133,7 +133,7 @@ const RegistrationForm = (props) => {
                     },
                 ]}
             >
-                <Input/>
+                <Input />
             </Form.Item>
 
             <Form.Item
@@ -147,7 +147,7 @@ const RegistrationForm = (props) => {
                     },
                 ]}
             >
-                <Input/>
+                <Input />
             </Form.Item>
 
             <Form.Item
@@ -180,7 +180,7 @@ const RegistrationForm = (props) => {
                                 },
                             ]}
                         >
-                            <Input/>
+                            <Input />
                         </Form.Item>
                     </Col>
                     <Col span={12}>

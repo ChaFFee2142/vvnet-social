@@ -1,25 +1,28 @@
 import logo from '../../VVnet1.png'
-import {NavLink} from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import './NavBar.css'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import NotificationsIcon from '@mui/icons-material/Notifications'
-import {useState} from "react"
+import { useState } from "react"
+import { useContext } from 'react'
+import { AuthContext } from '../../context/AuthContext'
 
 
-const NavBar = (props) => {
-    const [currentUser, setCurrentUser] = useState(props.currentUser)
+export const NavBar = () => {
+    const auth = useContext(AuthContext)
+
     return (
         <nav>
-            <img id='logo' src={logo}/>
-            {props.isSignedIn ? (
+            <img id='logo' src={logo} />
+            {auth.isSignedIn ? (
                 <>
-                    <NavLink to={`/profile/${currentUser.user_id}`}>Profile: {currentUser.username}</NavLink>
+                    <NavLink to={`/profile/${auth.userId}`}>Profile: {auth.userId}</NavLink>
                     <NavLink to="/about" className='nav-right'>About</NavLink>
                     <NavLink to="/users">Users</NavLink>
                     <div className="notification-icon"><NotificationsIcon cursor="pointer"
-                                                                          sx={{fontSize: 40, color: "white"}}/></div>
+                        sx={{ fontSize: 40, color: "white" }} /></div>
                     <div className="account-icon"><AccountCircleIcon cursor="pointer"
-                                                                     sx={{fontSize: 40, color: "white"}}/></div>
+                        sx={{ fontSize: 40, color: "white" }} /></div>
                 </>
             ) : (
                 <>
@@ -50,5 +53,3 @@ const NavBar = (props) => {
     //     )
     // }
 }
-
-export default NavBar

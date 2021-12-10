@@ -25,14 +25,14 @@ app.use(cookieParser())
 
 
 //*********** Development routes ***************
-app.get('/api/check', (req,res) => {
+app.get('/api/check', (req, res) => {
 
     res.status(200).json("Hello from backend")
 })
 
-app.get('/api/tokenCheck', verifyJWT,(req,res)=>{
+app.get('/api/tokenCheck', verifyJWT, (req, res) => {
     console.log(req.user_id)
-    res.status(200).json({message: "Token checked", user_id: req.user_id})
+    res.status(200).json({ message: "Token checked", user_id: req.user_id })
 })
 
 //*************** Routes ***********************
@@ -42,16 +42,16 @@ app.use('/api/posts', postRoute)
 
 
 //*************** MongoDB Connection ***********
-try{
-    mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true, useUnifiedTopology: true})
-    .then(() => console.log("Connected to mongo"))
-    .catch(err => console.log(err))
-} catch(e){
+try {
+    mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+        .then(() => console.log("Connected to mongo"))
+        .catch(err => console.log(err))
+} catch (e) {
     console.log(e)
 }
 
 
 
-app.listen(PORT, ()=>{
+app.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`)
 })
