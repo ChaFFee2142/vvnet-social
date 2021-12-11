@@ -7,8 +7,13 @@ import ProfilePage from "./pages/ProfilePage";
 import Feed from "./pages/FeedPage";
 import RegistrationPage from "./pages/Register";
 import { AuthContext } from "./context/AuthContext.js";
+import { useEffect } from "react";
 
 export const useRoutes = (isSignedIn, userId) => {
+
+    useEffect(()=>{
+        console.log(userId)
+    }, [])
 
     if (isSignedIn) {
         return (

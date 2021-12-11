@@ -8,8 +8,8 @@ export const useAuth = () => {
     const [isLoading, setIsLoading] = useState(true)
 
     const login = useCallback((jwtToken, id) => {
-        setToken(jwtToken)
         setUserId(id)
+        setToken(jwtToken)
         localStorage.setItem("userData", JSON.stringify({
             userId: id, token: jwtToken
         }))
@@ -18,35 +18,36 @@ export const useAuth = () => {
     }, [])
 
     const logout = useCallback(() => {
-        setToken(null)
         setUserId(null)
+        setToken(null)
         localStorage.removeItem("userData")
+        setIsLoading(false)
     }, [])
 
-    useEffect(() => {
+    useEffect( async () => {
         const data = JSON.parse(localStorage.getItem("userData"))
         if (data && data.token) {
             try{
-                axios.get("/api/tokenCheck", {
+                await axios.get("/api/tokenCheck", {
                     headers:
                     {
                         "x-access-token": data.token
                 }})
-                .then(()=>{
-                    login(data.token, data.userId)
-                    setIsLoading(false)
+                .then( async ()=>{
+                    await login(data.token, data.userId)
                 })
                 .catch(()=>{
-                    setIsLoading(false)
                     logout()
                 })
             }catch(e){
                 logout()
             }
-            
+        }else{
+            logout()
         }
+        // setIsLoading(false)
         console.log("login dependent useEffect")
-    }, [login])
+    }, [login, logout])
 
     // useEffect(async ()=>{
     //     const data = JSON.parse(localStorage.getItem("userData"))
