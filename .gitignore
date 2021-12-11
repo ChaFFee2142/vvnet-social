@@ -1,3 +1,5 @@
 node_modules
 cleint/node_modules
 .idea
+.env
+captcha.txt
