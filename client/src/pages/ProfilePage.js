@@ -41,7 +41,7 @@ function ProfilePage() {
         } catch (e) {
             console.log(e)
         }
-    }, [])
+    }, [id])
 
     return (
         username ?

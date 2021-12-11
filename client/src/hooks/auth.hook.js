@@ -34,8 +34,10 @@ export const useAuth = () => {
                 }})
                 .then(()=>{
                     login(data.token, data.userId)
+                    setIsLoading(false)
                 })
                 .catch(()=>{
+                    setIsLoading(false)
                     logout()
                 })
             }catch(e){
@@ -44,7 +46,6 @@ export const useAuth = () => {
             
         }
         console.log("login dependent useEffect")
-        setIsLoading(false)
     }, [login])
 
     // useEffect(async ()=>{
