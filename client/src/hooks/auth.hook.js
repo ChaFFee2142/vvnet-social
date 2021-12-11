@@ -26,7 +26,22 @@ export const useAuth = () => {
     useEffect(() => {
         const data = JSON.parse(localStorage.getItem("userData"))
         if (data && data.token) {
-            login(data.token, data.userId)
+            try{
+                axios.get("/api/tokenCheck", {
+                    headers:
+                    {
+                        "x-access-token": data.token
+                }})
+                .then(()=>{
+                    login(data.token, data.userId)
+                })
+                .catch(()=>{
+                    logout()
+                })
+            }catch(e){
+                logout()
+            }
+            
         }
         console.log("login dependent useEffect")
         setIsLoading(false)
