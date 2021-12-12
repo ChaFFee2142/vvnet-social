@@ -1,12 +1,19 @@
 const mongoose = require('mongoose')
 
+
+
 const UserSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true,
-        min: 3,
-        max: 20,
-        unique: true
+        min: 2,
+        max: 20
+    },
+    surname: {
+        type: String,
+        required: true,
+        min: 2,
+        max: 50
     },
     email: {
         type: String,
@@ -30,6 +37,12 @@ const UserSchema = new mongoose.Schema({
     following: {
         type: Array,
         default: []
+    },
+    gender: {
+        required: true,
+        type: String,
+        enum: ['Male', 'Female', 'Other'],
+        default: 'Other'
     },
     isAdmin: {
         type: Boolean,

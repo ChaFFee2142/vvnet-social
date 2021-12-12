@@ -3,6 +3,7 @@ const User = require('../models/User')
 const bcrypt = require('bcrypt')
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
+const validator = require('validator')
 const verifyJWT = require('../middleware/tokenVerify')
 
 
@@ -10,11 +11,16 @@ router.post('/register', async (req, res) => {
     try {
         const salt = await bcrypt.genSalt(10)
         const hashedPassword = await bcrypt.hash(req.body.password, salt)
+        console.log(req.body)
+        req.body.password <8 && res.status(500).json({message: "Password must be minimum 8 characters"})
         const newUser = await new User({
             username: req.body.username,
+            surname: req.body.surname,
             email: req.body.email,
-            password: hashedPassword
+            password: hashedPassword,
+            gender: req.body.gender
         })
+        console.log(newUser)
         const user = await newUser.save()
         res.status(200).json(user)
     } catch (e) {
