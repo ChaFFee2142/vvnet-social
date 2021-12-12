@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import {
     Form,
     Input,
@@ -11,6 +11,9 @@ import {
     Button,
     AutoComplete,
 } from 'antd';
+import axios from 'axios'
+import { AuthContext } from '../context/AuthContext';
+
 
 const { Option } = Select;
 
@@ -47,9 +50,39 @@ const tailFormItemLayout = {
 
 const RegistrationForm = (props) => {
     const [form] = Form.useForm();
+    const auth = useContext(AuthContext)
 
     const onFinish = (values) => {
         console.log('Received values of form: ', values);
+        try {
+            axios.post('/api/auth/register', {
+                "email": values.email,
+                "password": values.password,
+                "username": values.username,
+                "surname": values.surname,
+                "gender": values.gender
+            })
+                .then((response) => {
+                    axios.post('/api/auth/login', { "email": values.email, "password": values.password })
+                        .then((response) => {
+                            const { user_id, token } = response.data
+                            if (response.status === 200) {
+                                auth.login(token, user_id)
+                                console.log(response.data)
+                            }
+                        })
+                    if (response.status === 200) {
+                        const { user_id, token } = response.data
+                        auth.login(auth.token, auth.userId)
+                        console.log(response.data)
+                    }
+                })
+                .catch((e) => {
+                    console.log(e)
+                })
+        } catch (e) {
+            console.log(e)
+        }
     };
 
     useEffect(() => {
@@ -123,7 +156,7 @@ const RegistrationForm = (props) => {
             </Form.Item>
 
             <Form.Item
-                name="name"
+                name="username"
                 label="Name"
                 rules={[
                     {
@@ -161,13 +194,13 @@ const RegistrationForm = (props) => {
                 ]}
             >
                 <Select placeholder="select your gender">
-                    <Option value="male">Male</Option>
-                    <Option value="female">Female</Option>
-                    <Option value="other">Other</Option>
+                    <Option value="Male">Male</Option>
+                    <Option value="Female">Female</Option>
+                    <Option value="Other">Other</Option>
                 </Select>
             </Form.Item>
 
-            <Form.Item label="Captcha" extra="We must make sure that your are a human.">
+            {/* <Form.Item label="Captcha" extra="We must make sure that your are a human.">
                 <Row gutter={8}>
                     <Col span={12}>
                         <Form.Item
@@ -187,7 +220,7 @@ const RegistrationForm = (props) => {
                         <Button>Get captcha</Button>
                     </Col>
                 </Row>
-            </Form.Item>
+            </Form.Item> */}
 
             <Form.Item
                 name="agreement"
