@@ -11,7 +11,7 @@ const jwt = require("jsonwebtoken")
 function AuthPage(props) {
     const [label, setLabel] = useState("Waiting for the connection...")
     const [isLoaded, setIsLoaded] = useState(false)
-    const [userName, setUsername] = useState('')
+    const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const auth = useContext(AuthContext)
 
@@ -35,7 +35,7 @@ function AuthPage(props) {
         event.preventDefault()
         console.log(event)
         try {
-            axios.post('/api/auth/login', { "email": userName, "password": password })
+            axios.post('/api/auth/login', { "email": email, "password": password })
                 .then((response) => {
                     const { user_id, token } = response.data
                     if (response.status === 200) {
@@ -48,8 +48,8 @@ function AuthPage(props) {
         }
     };
 
-    const usernameChange = async (props) => {
-        setUsername(props.target.value)
+    const emailChange = async (props) => {
+        setEmail(props.target.value)
     }
 
     const passwordChange = async (props) => {
@@ -68,16 +68,16 @@ function AuthPage(props) {
             //onFinish={event => loginHandler(event)}
             >
                 <Form.Item
-                    name="username"
+                    name="email"
                     rules={[
                         {
                             required: true,
-                            message: 'Please input your Username!',
+                            message: 'Please input your email!',
                         },
                     ]}
                 >
-                    <Input onChange={props => usernameChange(props)}
-                        prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+                    <Input onChange={props => emailChange(props)}
+                        prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email" />
                 </Form.Item>
                 <Form.Item
                     name="password"
